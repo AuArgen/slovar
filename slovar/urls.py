@@ -5,5 +5,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
-    # Добавьте URL-путь для вашей главной страницы
+    path('', include('home.urls')),  # Добавьте эту строку для главной страницы
 ]
