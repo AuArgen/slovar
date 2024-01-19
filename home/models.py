@@ -15,7 +15,7 @@ class Word(models.Model):
 
 
 class Text(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     word = models.CharField(max_length=500)
     translate = models.CharField(max_length=500)
     create = models.DateTimeField()

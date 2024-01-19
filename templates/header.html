@@ -1,0 +1,36 @@
+<nav class="navbar bg-dark navbar-expand-lg border-bottom border-body" data-bs-theme="dark">
+      <div class="container">
+        <a class="navbar-brand" href="#">SlovarAN</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" id="home-a" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="text-a" href="/text">Text</a>
+            </li>
+              <li class="nav-item">
+              <a class="nav-link" id="word-game-a" href="/game-word">Word game</a>
+            </li>
+              <li class="nav-item">
+              <a class="nav-link" id="text-game-a" href="/game-text">Text game</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="word-add-a" href="/add-word">Word add</a>
+            </li>
+              <li class="nav-item">
+              <a class="nav-link" id="text-add-a" href="/add-text">Text add</a>
+            </li>
+          </ul>
+          <span class="text-white">
+            {{ user.username }}
+          </span>
+            <span class="ms-2">
+                <a href="{% url 'logout' %}">Logout</a>
+            </span>
+        </div>
+      </div>
+    </nav>
