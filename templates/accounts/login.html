@@ -2,22 +2,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login slovar Argen</title>
+    <title>Вход в словарь Арген</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container p-5">
-    <h1>Login</h1>
+    <h1>Вход</h1>
        <form class="form-control shadow-sm" method="post" action="{% url 'login' %}">
             {% csrf_token %}
             {{ form.as_p }}
-            <button class="btn btn-success" type="submit">Login</button>
+            <button class="btn btn-success" type="submit">Войти</button>
         </form>
         {% if error_message %}
             <p>{{ error_message }}</p>
         {% endif %}
-        <p>Don't have an account? <a href="{% url 'register' %}">Sign up</a></p>
+        <p>Нет аккаунта? <a href="{% url 'register' %}">Зарегистрируйтесь</a></p>
     </div>
     <script>
         let inp = document.querySelectorAll('input')
