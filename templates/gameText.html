@@ -12,10 +12,27 @@
 <body>
     {% include 'header.html' %}
     <div class="container" style="min-height: 85vh">
-        <div class="p-2 bg-light border-none">
-            <input oninput="findWord(this)" type="text" placeholder="Search..." class="form-control">
+        <div class="p-2 bg-light border-none row">
+            <input oninput="changeLength()" type="number" id="to" placeholder="to" value="0" class="col form-control">
+            <input oninput="changeLength()" type="number" id="do" placeholder="do" value="0" class="col form-control">
+        </div>
+        <div class="shadow-sm row p-2">
+            <h4 class="bg-light border-bottom p-2"> Find text</h4>
+            <div class="col-12 p-3 text-center question fs-5">Оюн үчүн кеминде 5 тест  кошуу керек!!</div>
+            <input type="text" oninput="verify(this)" class=" my-3 col-12 form-control" placeholder="Translate">
         </div>
         <table class="table table-hover">
+          <thead>
+            <tr>
+                <td>№</td>
+                <td>Word</td>
+                <td>Translate</td>
+            </tr>
+          </thead>
+          <tbody class="showGame">
+          </tbody>
+        </table>
+        <table class="table table-hover d-none">
           <thead>
             <tr>
                 <td>№</td>
@@ -36,8 +53,14 @@
     </div>
     <script>
         let words = []
+        let game = []
         let wordLength
         let id = ''
+        let toInp = document.querySelector('#to')
+        let doInp = document.querySelector('#do')
+        let question = document.querySelector('.question')
+        let toN = 0;
+        let doN = 0;
         document.querySelector('#text-game-a').classList.add('active')
         window.onload = () => {
             let tdsW = document.querySelectorAll('.word')
@@ -51,18 +74,68 @@
                 words.push(newWord)
             }
             wordLength = words.length;
+            doInp.value = wordLength;
+            doN = wordLength;
+            if (wordLength > 4) playStart()
         }
-        function findWord(e) {
-            e = (e.value + '').toLowerCase();
-            for (let i = 0; i < wordLength; i++) {
-                let w = (words[i]['word'] + '').toLowerCase()
-                let t = (words[i]['translate'] + '').toLowerCase()
-                id[i].classList.add('d-none')
-                if (w.search(e) > -1 || t.search(e) > -1) {
-                    id[i].classList.remove('d-none')
+
+        function changeLength() {
+            toN = +toInp.value
+            doN = +doInp.value
+            game = []
+            showGame()
+            playStart()
+        }
+
+        function verify(e) {
+            let a = (e.value + '').toLowerCase();
+            if (game.length-1 >= 0 && (game[game.length-1]['translate']+'').toLowerCase() === a) {
+                e.value = ''
+                showGame();
+                playStart()
+            }
+        }
+
+        function  showGame() {
+            let show = ``
+            for (let i = game.length-1; i > -1; i--) {
+                show += `
+                    <tr>
+                        <td>${i+1}</td>
+                        <td>${game[i]['word']}</td>
+                        <td>${game[i]['translate']}</td>
+                    </tr>
+                `;
+            }
+            document.querySelector('.showGame').innerHTML = show
+        }
+
+        function playStart() {
+            if (toN < doN) {
+                while (true) {
+                    let r = Math.floor(Math.random()*(doN - toN))
+                    let f = 0;
+                    let w1;
+                    if (doN - toN === game.length) game = []
+                    if (toN + r < wordLength) {
+                        f = 1;
+                        w1 = words[toN + r];
+                        for (let i = 0; i < game.length; i++) {
+                            if (game[i]['id'] === w1['id']) {
+                                f = 0;
+                                break;
+                            }
+                        }
+                    }
+                    if (f) {
+                        game.push(w1)
+                        question.textContent = w1['word']
+                        break;
+                    }
                 }
             }
         }
+
     </script>
     <footer class="bg-black text-white p-5 text-center">
         <span>company@2024/<a href="https://bytehoven.dev" class="text-white">bytehoven</a> - argenazizbekuulu3@gmail.com</span>
