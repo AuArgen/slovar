@@ -1,24 +1,44 @@
+# .gitignore for Python Django
+
+# Ignore virtual environment
+venv/
+
+# Ignore database
+*.sqlite3
+*.db
+
+# Ignore static files
+/staticfiles/
+/static/
+
+# Ignore media files
+/media/
+
+# Ignore environment configuration
+.env
+
 # Ignore compiled Python files
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
-# Ignore virtual environment
-venv/
-
 # Ignore local development settings
-local_settings.py
+settings_local.py
 
-# Ignore IDE-specific files
-.vscode/
-.idea/
-
-# Ignore any log files
+# Ignore logs and other generated files
+logs/
 *.log
 
-# Ignore database files
-db.sqlite3
+# Ignore coverage reports
+htmlcov/
 
-# Ignore secret keys
-secrets.json
+# Ignore IDE and editor-specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore system files
+.DS_Store
+Thumbs.db
