@@ -92,3 +92,32 @@ def game_text(request):
         'words': words,
     }
     return render(request, 'gameText.html', context)
+@login_required(login_url='login')
+def update_word(request, pk):
+    word_instance = Word.objects.get(id=pk)  # Use get instead of filter to retrieve a single object
+
+    if request.method == 'POST':
+        word = request.POST.get('word', '').strip()  # Use get to get the value and strip to remove trailing spaces
+        translate = request.POST.get('translate', '').strip()
+
+        if word and translate:  # Check if both word and translate are not empty
+            word_instance.word = word
+            word_instance.translate = translate
+            word_instance.save()
+
+    return redirect('add-word')
+
+@login_required(login_url='login')
+def update_text(request, pk):
+    word_instance = Text.objects.get(id=pk)  # Use get instead of filter to retrieve a single object
+
+    if request.method == 'POST':
+        word = request.POST.get('word', '').strip()  # Use get to get the value and strip to remove trailing spaces
+        translate = request.POST.get('translate', '').strip()
+
+        if word and translate:  # Check if both word and translate are not empty
+            word_instance.word = word
+            word_instance.translate = translate
+            word_instance.save()
+
+    return redirect('add-text')

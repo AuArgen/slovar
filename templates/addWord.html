@@ -6,47 +6,110 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add word</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          referrerpolicy="no-referrer" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
 </head>
 <body>
-    {% include 'header.html' %}
-    <div class="container" style="min-height: 85vh">
-        <form class="form-control shadow-sm my-5" action="" method="post">
-            {% csrf_token %}
-            <h3 class="bg-light p-2 border-bottom mb-2">Add new word</h3>
-            <input type="text" id="word" name="word" placeholder="Сөз..." class="form-control mb-3" required>
-            <input type="text" id="word" name="translate" placeholder="Word..." class="form-control mb-3" required>
-            <button class="btn btn-success">Save new word</button>
-        </form>
-        <h3 class="bg-light p-2 border-bottom">All words</h3>
-        <table class="table table-hover">
-          <thead>
-            <tr>
-                <td>№</td>
-                <td>Word</td>
-                <td>Translate</td>
-                <td><span style="min-width: 25px; max-width: 25px; min-height:25px; max-height: 25px; font-size: 1.4rem; display: flex; justify-content: center; align-items: center; background: red; color: white; border-radius: 50%;"><span>&times;</span></span></td>
-            </tr>
-          </thead>
-          <tbody>
-          {% for i in words %}
+{% include 'header.html' %}
+<div class="container" style="min-height: 85vh">
+    <form class="form-control shadow-sm my-5" action="" method="post">
+        {% csrf_token %}
+        <h3 class="bg-light p-2 border-bottom mb-2">Добавить новый словарь</h3>
+        <input type="text" id="word" name="word" placeholder="Сөз..." class="form-control mb-3" required>
+        <input type="text" id="word" name="translate" placeholder="Word..." class="form-control mb-3" required>
+        <button class="btn btn-success">Добавить</button>
+    </form>
+    <h3 class="bg-light p-2 border-bottom">Все словарь</h3>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <td>№</td>
+            <td>Слов</td>
+            <td>Перевод</td>
+            <td>
+                <button class="btn btn-light">
+                    <i class="fa fa-pen"></i>
+                </button>
+            </td>
+            <td><span
+                    style="min-width: 25px; max-width: 25px; min-height:25px; max-height: 25px; font-size: 1.4rem; display: flex; justify-content: center; align-items: center; background: red; color: white; border-radius: 50%;"><span>&times;</span></span>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in words %}
             <tr>
                 <td>{{ forloop.counter }}</td>
-                <td>{{ i.word }}</td>
-                <td>{{ i.translate }}</td>
-                <td><a href="/delete-word/{{ i.id }}" style="min-width: 25px; max-width: 25px; min-height:25px; max-height: 25px; font-size: 1.4rem; display: flex; justify-content: center; align-items: center; background: red; color: white; border-radius: 50%;"><span>&times;</span></a></td>
+                <td class=text_one_{{ i.id }}>{{ i.word }}</td>
+                <td class=text_two_{{ i.id }}>{{ i.translate }}</td>
+                <td>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop" onclick="changeWord({{ i.id }})"><i class="fa fa-pen"></i></button>
+                </td>
+                <td><a href="/delete-word/{{ i.id }}"
+                       style="min-width: 25px; max-width: 25px; min-height:25px; max-height: 25px; font-size: 1.4rem; display: flex; justify-content: center; align-items: center; background: red; color: white; border-radius: 50%;"><span>&times;</span></a>
+                </td>
             </tr>
         {% endfor %}
-          </tbody>
-        </table>
+        </tbody>
+    </table>
+</div>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Изменить</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row align-items-center">
+                    <form id="form-update" class="col-10" action="" method="post">
+                        {% csrf_token %}
+                        <input type="text" id="one-update" class="form-control my-3" required="" name="word" placeholder="Сөз">
+                        <input type="text" id="two-update" class="form-control my-3" required="" name="translate" placeholder="Translate">
+                        <input type="submit" class="d-none" id="update">
+                    </form>
+                    <div class="col-2">
+                        <button class="btn btn-success" onclick="changeWordLocation()">
+                            <i class="fa fa-refresh"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <label for="update"  class="btn btn-primary">Сохранить</label>
+            </div>
+        </div>
     </div>
-    <script>
-        document.querySelector('#word-add-a').classList.add('active')
-
-    </script>
-    <footer class="bg-black text-white p-5 text-center">
-        <span>company@2024/<a href="https://bytehoven.dev" class="text-white">bytehoven</a> - argenazizbekuulu3@gmail.com</span>
-    </footer>
+</div>
+<script>
+    document.querySelector('#word-add-a').classList.add('active')
+    let oneUpdate = document.getElementById('one-update')
+    let twoUpdate = document.getElementById('two-update')
+    function changeWord(x) {
+        let one = document.querySelector(`.text_one_${x}`).textContent
+        let two = document.querySelector(`.text_two_${x}`).textContent
+        oneUpdate.value = one
+        twoUpdate.value = two
+        document.getElementById('form-update').action = `/update-word/${x}/`
+    }
+    function changeWordLocation() {
+        let one = oneUpdate.value
+        oneUpdate.value = twoUpdate.value
+        twoUpdate.value = one
+    }
+</script>
+<footer class="bg-black text-white p-5 text-center">
+    <span>company@2024/<a href="https://bytehoven.dev"
+                          class="text-white">bytehoven</a> - argenazizbekuulu3@gmail.com</span>
+</footer>
 </body>
 </html>

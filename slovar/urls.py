@@ -5,9 +5,9 @@ from django.conf import settings  # Import the settings module
 from django.conf.urls.static import static  # Import the static function
 
 urlpatterns = [
+    path('', include('home.urls')),  # Add this line for the main page
     path('admin2024/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
-    path('', include('home.urls')),  # Add this line for the main page
 ]
 
 # Add static files serving during development
