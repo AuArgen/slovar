@@ -9,7 +9,6 @@ venv/
 
 # Ignore static files
 /staticfiles/
-/static/
 
 # Ignore media files
 /media/
