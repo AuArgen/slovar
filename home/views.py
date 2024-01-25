@@ -8,7 +8,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 @login_required(login_url='login')
 def home(request):
     words = Word.objects.filter(user_id=request.user).order_by('-id')
-
+    word = words.count()
+    if word < 5:
+        return redirect('game_word')
     context = {
         'words': words,
     }
