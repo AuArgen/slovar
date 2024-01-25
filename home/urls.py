@@ -13,4 +13,10 @@ urlpatterns = [
     path('delete-text/<int:pk>/', views.delete_text, name='delete-text'),
     path('update-word/<int:pk>/', views.update_word, name='update-word'),
     path('update-text/<int:pk>/', views.update_text, name='update-text'),
+    path('learned-word/<int:pk>/', views.learned_word, name='learned-word'),
+    path('learned-text/<int:pk>/', views.learned_text, name='learned-text'),
+    path('show-learned-text/', views.learned_show_text, name='learned-show-text'),
+    path('delete-learned-text/<int:pk>/', views.learned_delete_text, name='learned-delete-text'),
+    path('show-learned-word/', views.learned_show_word, name='learned-show-word'),
+    path('delete-learned-word/<int:pk>/', views.learned_delete_word, name='learned-delete-word'),
 ]

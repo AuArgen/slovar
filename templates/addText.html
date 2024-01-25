@@ -38,8 +38,7 @@
                     <i class="fa fa-pen"></i>
                 </button>
             </td>
-            <td><span
-                    style="min-width: 25px; max-width: 25px; min-height:25px; max-height: 25px; font-size: 1.4rem; display: flex; justify-content: center; align-items: center; background: red; color: white; border-radius: 50%;"><span>&times;</span></span>
+            <td><i class="fa fa-trash"></i>
             </td>
         </tr>
         </thead>
@@ -53,8 +52,8 @@
                     <button class="btn btn-primary" type="button" data-bs-toggle="modal"
                             data-bs-target="#staticBackdrop" onclick="changeWord({{ i.id }})"><i class="fa fa-pen"></i></button>
                 </td>
-                <td><a href="/delete-text/{{ i.id }}"
-                       style="min-width: 25px; max-width: 25px; min-height:25px; max-height: 25px; font-size: 1.4rem; display: flex; justify-content: center; align-items: center; background: red; color: white; border-radius: 50%;"><span>&times;</span></a>
+                <td>
+                    <i class="text-danger fa fa-trash"></i>
                 </td>
             </tr>
         {% endfor %}

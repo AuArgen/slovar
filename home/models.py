@@ -33,8 +33,10 @@ class Text(models.Model):
 class LearnedWord(models.Model):
     user_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     word = models.ForeignKey(Word, on_delete=models.CASCADE)
+    active = models.BooleanField(default=True)
 
 
 class LearnedText(models.Model):
     user_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     word = models.ForeignKey(Text, on_delete=models.CASCADE)
+    active = models.BooleanField(default=True)
