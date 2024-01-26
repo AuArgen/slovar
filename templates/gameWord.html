@@ -90,8 +90,8 @@
     }
 
     function verify(e) {
-        let a = (e.value + '').toLowerCase();
-        if (game.length - 1 >= 0 && (game[game.length - 1]['translate'] + '').toLowerCase() === a) {
+        let a = removeTrailingSpaces(e.value + '').toLowerCase();
+        if (game.length - 1 >= 0 && removeTrailingSpaces(game[game.length - 1]['translate'] + '').toLowerCase() === a) {
             e.value = ''
             showGame();
             playStart()

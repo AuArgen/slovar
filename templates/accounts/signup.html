@@ -6,12 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Регистрация в словаре Аргена</title>
-        {% include 'links.html' %}
+    {% include 'links.html' %}
 </head>
 <body>
-<div class="container p-5">
+<div class="container py-5 px-2">
     <h1>Регистрация</h1>
-    <form class="form-control shadow-sm" method="post">
+    <form class="form-control shadow-sm" method="post" onsubmit="return validateForm()">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
         {% csrf_token %}
         <p>
             <label for="id_username">Логин:</label>
@@ -26,22 +33,23 @@
 
         <p>
             <label for="id_password1">Пароль:</label>
-            <input type="password" name="password1" minlength="8" autocomplete="new-password" required="" id="id_password1"
-                   class="form-control">
-            <span class="helptext"></span>
+            <input type="password" name="password1" minlength="8" autocomplete="new-password" required=""
+                   id="id_password1"
+                   class="form-control" oninput="checkPassword()">
+            <span class="helptext" id="passwordError"></span>
         <ul>
-            <li>Пароль не должен совпадать с вашей личной информацией.</li>
-            <li>Пароль должен содержать не менее 8 символов.</li>
-            <li>Пароль не должен быть слишком распространенным.</li>
-            <li>Пароль не должен состоять только из цифр.</li>
+            <li id="length">Пароль должен содержать не менее 8 символов.</li>
+            <li id="uppercase">Пароль должен содержать хотя бы одну заглавную букву.</li>
+            <li id="number">Пароль должен содержать хотя бы одну цифру.</li>
         </ul>
         </p>
 
         <p>
             <label for="id_password2">Подтверждение пароля:</label>
-            <input type="password" name="password2" minlength="8"  autocomplete="new-password" required="" id="id_password2"
-                   class="form-control">
-            <span class="helptext">Введите тот же пароль, что и ранее, для подтверждения.</span>
+            <input type="password" name="password2" minlength="8" autocomplete="new-password" required=""
+                   id="id_password2"
+                   class="form-control" oninput="checkPassword()">
+            <span class="helptext" id="passwordMatchError"></span>
         </p>
 
         <button class="btn btn-primary" type="submit">Зарегистрироваться</button>
@@ -52,6 +60,56 @@
     let inp = document.querySelectorAll('input')
     for (let i = 0; i < inp.length; i++) {
         inp[i].classList.add('form-control')
+    }
+
+    function checkPassword() {
+        // Получить значения паролей
+        let password1 = document.getElementById('id_password1').value;
+        let password2 = document.getElementById('id_password2').value;
+
+        // Проверка на совпадение паролей
+        if (password1 !== password2) {
+            document.getElementById('passwordMatchError').innerHTML = '<span class="text-danger">Пароли не совпадают.</span>';
+        } else {
+            document.getElementById('passwordMatchError').innerHTML = '';
+        }
+
+        // Проверка сложности пароля
+        let length = password1.length >= 8;
+        let uppercase = /[A-Z]/.test(password1);
+        let number = /\d/.test(password1);
+
+        document.getElementById('length').style.color = length ? 'green' : 'red';
+        document.getElementById('uppercase').style.color = uppercase ? 'green' : 'red';
+        document.getElementById('number').style.color = number ? 'green' : 'red';
+
+        // Общее сообщение об ошибке
+        let passwordError = document.getElementById('passwordError');
+        passwordError.innerHTML = '';
+        if (!length) {
+            passwordError.innerHTML += 'Пароль должен содержать не менее 8 символов.<br>';
+        }
+        if (!uppercase) {
+            passwordError.innerHTML += 'Пароль должен содержать хотя бы одну заглавную букву.<br>';
+        }
+        if (!number) {
+            passwordError.innerHTML += 'Пароль должен содержать хотя бы одну цифру.';
+        }
+    }
+
+    function validateForm() {
+        // Проверка совпадения паролей перед отправкой формы
+        let password1 = document.getElementById('id_password1').value;
+        let password2 = document.getElementById('id_password2').value;
+
+        if (password1 !== password2) {
+            document.getElementById('passwordMatchError').innerHTML = '<span class="text-danger">Пароли не совпадают.</span>';
+
+            return false;  // Предотвращаем отправку формы
+        } else {
+            document.getElementById('passwordMatchError').innerHTML = '';
+            return true;  // Разрешаем отправку формы
+        }
     }
 </script>
 </body>
