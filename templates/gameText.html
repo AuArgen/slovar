@@ -161,6 +161,12 @@
                 words.splice(i, 1)
             }
         }
+        let audio = new Audio('{% static "audio/dontreading.mp3" %}')
+        audio.play()
+        let timer = setInterval(tokto, 2000)
+        function tokto() {
+            audio.pause()
+        }
         wordLength = words.length;
         doInp.value = wordLength;
         doN = wordLength;
