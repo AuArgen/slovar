@@ -93,6 +93,8 @@
         let a = removeTrailingSpaces(e.value + '').toLowerCase();
         if (game.length - 1 >= 0 && removeTrailingSpaces(game[game.length - 1]['translate'] + '').toLowerCase() === a) {
             e.value = ''
+            let audio = new Audio('{% static 'audio/success.mp3' %}')
+            audio.play()
             showGame();
             playStart()
         }
