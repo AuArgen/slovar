@@ -3,7 +3,9 @@
 # Ignore virtual environment
 venv/
 
-# Ignore database
+# Ignore dat
+.venv
+.abase
 *.sqlite3
 *.db
 

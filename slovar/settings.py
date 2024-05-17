@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'languages.apps.LanguagesConfig',
     'lessons.apps.LessonsConfig',
+    'teachers.apps.TeachersConfig',
 ]
 
 MIDDLEWARE = [
