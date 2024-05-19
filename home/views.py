@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 
 from languages.models import Language
-from lessons.models import Lesson, EventTest, Tests
+from lessons.models import Lesson, EventTest, Tests, Game
 from django.shortcuts import render, redirect, get_object_or_404
 
 from teachers.models import Teacher, News
@@ -48,11 +48,13 @@ def lesson_in(request, id2):
         language = lesson[0].language
         for less in lesson:
             evetTests = EventTest.objects.filter(lesson=less)
+            game = Game.objects.filter(lesson=less)
             if evetTests.exists():
                 less.is_test = True
                 less.test = evetTests[0]
             else:
                 less.is_test = False
+            less.game = len(game)
         lesson = lesson[0]
         lesson.show += 1
         lesson.save()
@@ -88,3 +90,12 @@ def news(request, id):
         context = {'news': news}
         return render(request, 'home/news_in.html', context)
     return redirect('index')
+
+def game(request, id):
+    game = Game.objects.filter(lesson__id=id)
+    if game.exists():
+        context = {'games': game, 'lesson': id}
+        return render(request, 'home/game.html', context)
+    return redirect('index')
+
+

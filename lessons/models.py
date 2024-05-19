@@ -52,3 +52,18 @@ class Tests(models.Model):
 
     def __str__(self):
         return self.question
+
+
+
+class Game(models.Model):
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, verbose_name='Урок')
+    title = models.CharField(max_length=255, verbose_name='Вопрос')
+    question = models.TextField(verbose_name='Ответ')
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Game'
+        verbose_name_plural = 'Games'
+
+    def __str__(self):
+        return self.title

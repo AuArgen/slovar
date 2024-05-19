@@ -17,6 +17,11 @@
                                 <i class="fa fa-check-square"></i> Тест
                             </a>
                         {% endif %}
+                        {% if lesson.game > 0 %}
+                            <a href="/game/{{ lesson.id }}/" class="btn btn-success mx-20">
+                                <i class="fa fa-gamepad"></i> Игра
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-4 col-sm-4 pb-30">
