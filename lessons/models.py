@@ -7,7 +7,7 @@ from languages.models import Language
 class Lesson(models.Model):
     language = models.ForeignKey(Language, on_delete=models.CASCADE, related_name='lessons')
     title = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='lessons')
+    image = models.ImageField(upload_to='images/lessons')
     description = RichTextField()
     show = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
@@ -25,7 +25,7 @@ class EventTest(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.TextField()
-    image = models.ImageField(upload_to='lessons')
+    image = models.ImageField(upload_to='images/lessons')
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -51,4 +51,4 @@ class Tests(models.Model):
         verbose_name_plural = 'Questions'
 
     def __str__(self):
-        return self.title
+        return self.question
