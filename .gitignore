@@ -6,7 +6,6 @@ venv/
 # Ignore dat
 .venv
 .abase
-*.sqlite3
 *.db
 
 # Ignore static files
