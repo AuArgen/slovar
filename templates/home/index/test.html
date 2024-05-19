@@ -1,0 +1,99 @@
+{% load static %}
+<div class="dream-university">
+    <style>
+        p {
+            padding: 0;
+            margin: 0;
+            display: inline-block;
+        }
+    </style>
+    <div class="du-feature" style="min-height: 100dvh">
+        <div class="container">
+            <h2 class="center">Тест язык: {{ language.title }} </h2>
+            <h2 class="center">Тема: {{ test.title }} </h2>
+            <div class="row pt-50 ">
+                <form id="form">
+                    <div style="background: white; border-radius: 5px; overflow: hidden; padding: 20px">
+                        <h2 style="text-align: center">ТЕСТ</h2>
+
+                        {% for detail in details %}
+                            <div class="p-30">
+                                <div style="display: flex; font-size: 20px; font-weight: bold; color:black; align-items: center; gap: 5px;">
+                                    <div class="alert alert-success"
+                                         style="padding: 5px 35px; margin: 0">{{ forloop.counter }}
+                                    </div>
+                                    <div style="padding: 20px;">  {{ detail.question | safe }}</div>
+                                </div>
+                                <div style="padding: 20px;">
+                                    <div style="display: flex; gap: 10px; align-items: center">
+                                        <input type="radio" style="width: 20px; margin: 0; height: 20px"
+                                               id="detail_{{ detail.id }}_1" name="detail_{{ detail.id }}">
+                                        <label style="display: block; min-width: 60%; cursor:pointer;"
+                                               for="detail_{{ detail.id }}_1">
+                                            {{ detail.a|safe }}
+                                        </label>
+                                    </div>
+
+                                    <div style="display: flex; gap: 10px; align-items: center">
+                                        <input type="radio" style="width: 20px; margin: 0; height: 20px"
+                                               id="detail_{{ detail.id }}_2" name="detail_{{ detail.id }}">
+                                        <label style="display: block; min-width: 60%; cursor:pointer;"
+                                               for="detail_{{ detail.id }}_2">
+                                            {{ detail.b|safe }}
+                                        </label>
+                                    </div>
+
+                                    <div style="display: flex; gap: 10px; align-items: center">
+                                        <input type="radio" style="width: 20px; margin: 0; height: 20px"
+                                               id="detail_{{ detail.id }}_3" name="detail_{{ detail.id }}" required>
+                                        <label style="display: block; min-width: 60%; cursor:pointer;"
+                                               for="detail_{{ detail.id }}_3">
+                                            {{ detail.c|safe }}
+                                        </label>
+                                    </div>
+
+                                    <div style="display: flex; gap: 10px; align-items: center">
+                                        <input type="radio" style="width: 20px; margin: 0; height: 20px"
+                                               id="detail_{{ detail.id }}_4" name="detail_{{ detail.id }}" required>
+                                        <label style="display: block; min-width: 60%; cursor:pointer;"
+                                               for="detail_{{ detail.id }}_4">
+                                            {{ detail.d|safe }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <button class="btn btn-primary">
+                            Проверить тест
+                        </button>
+                        <div id="showAnswer" class=" btn btn-success" style="font-size: 25px; display: none; text-align: center; margin-top: 20px; padding:10px;"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        let test = [
+            {% for detail in details %}
+                {
+                    id: {{ detail.id }},
+                    answer: {{ detail.answer }}
+                },
+            {% endfor %}
+        ]
+        document.querySelector('#form').onsubmit = (e) => {
+            e.preventDefault();
+            let c = 0
+            for (let i = 0; i < test.length; i++) {
+                if (document.querySelector(`#detail_${test[i].id}_${test[i].answer + 1}`).checked) {
+                    c++;
+                }
+            }
+            document.getElementById('showAnswer').innerHTML = 'Ответ: ' +  c + '/' + test.length;
+            document.getElementById('showAnswer').style.display = 'block';
+
+        }
+    </script>
+    <!-- End feature -->
+
+</div>
