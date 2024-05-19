@@ -1,0 +1,24 @@
+<!--Begin for student -->
+<div class="for-students" id="teachers">
+    <div class="container">
+        <h2 class="center">Учители</h2>
+
+        <div class="row">
+            {% for teacher in teachers %}
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="du-faculty-item wow fadeInLeft">
+                        <figure><img src="{{ teacher.image.url }}" alt=""></figure>
+                        <div class="du-caption-box">
+                            <div class="du-caption">
+                                <h3>{{ teacher.fio }}</h3>
+                                <p>{{ teacher.description }}</p>
+                                <a href="/teacher/{{ teacher.id }}/" class="btn-default du-common-property">Далее</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!--End for student-->

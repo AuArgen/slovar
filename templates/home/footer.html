@@ -1,5 +1,14 @@
 <!--footer-->
 <footer>
+    <script>
+        let a_all = document.querySelectorAll('a');
+        a_all.forEach((element) => {
+            element.onclick = () => {
+                window.location.href = element.href
+            }
+        });
+
+    </script>
     <div class="container">
         Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>
     </div>

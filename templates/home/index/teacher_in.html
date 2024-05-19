@@ -1,0 +1,27 @@
+{% load static %}
+<div class="dream-university">
+
+
+    <!--Begin feature-->
+    <div class="du-feature">
+        <div class="container">
+            <h2 class="center">Учитель: {{ teacher.fio }} </h2>
+            <h3 class="center"> <i class="fa fa-envelope"></i> {{ teacher.email }} </h3>
+            <h3 class="center"> <i class="fa fa-phone"></i> {{ teacher.phone_number }} </h3>
+            <div class="row pt-50 ">
+                <div class="col-12 pb-30">
+                    <div class="d-flex gap-2 justify-content-between">
+                        <a href="/" class="btn btn-primary mx-20">
+                            Назад
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-4 col-sm-4 pb-30">
+                    {{ teacher.information | safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End feature -->
+
+</div>

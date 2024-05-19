@@ -1,0 +1,28 @@
+{% load static %}
+<!--Begin our faculty-->
+<div class="our-faculty" id="tests">
+    <div class="container">
+        <h2 class="center">ТестЫ</h2>
+        <div class="row">
+            {% for test in tests %}
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="du-faculty-item wow fadeInLeft">
+                        <figure><a href=#><img class="img-responsive" src="{{ test.image.url }}"
+                                               alt="image"></a></figure>
+                        <div class="du-caption-box">
+                            <div class="du-caption">
+                                <p>
+                                    Язык: {{ test.language.title }}
+                                    <br>
+                                    Урок: {{ test.lesson.title }}
+                                </p>
+                                <h3><a href='/test/{{ test.id }}/'>{{ test.title }}</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!--End our faculty-->
