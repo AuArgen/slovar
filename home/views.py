@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 
 from languages.models import Language
+from lessons.models import Lesson, EventTest
 from .models import *
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -11,6 +12,33 @@ def index(request):
     languages = Language.objects.all()
     context = {'languages': languages}
     return render(request, 'home/index.html', context)
+
+
+def lang_in(request, id):
+    language = Language.objects.filter(pk=id)
+    if language.exists():
+        for lang in language:
+            lessons = Lesson.objects.filter(language=lang)
+            lang.lessons_total = len(lessons)
+        language = language[0]
+        context = {'language': language}
+        return render(request, 'home/language_in.html', context)
+    return redirect('index')
+
+
+def lesson(request, id):
+    lessons = Lesson.objects.filter(language=id)
+    if lessons.exists():
+        language = lessons[0].language
+        for lesson in lessons:
+            if EventTest.objects.filter(lesson=lesson).exists():
+                lesson.is_test = True
+            else:
+                lesson.is_test = False
+        context = {'lessons': lessons, 'language': language}
+        return render(request, 'home/lesson.html', context)
+    return redirect('index')
+
 
 @login_required(login_url='login')
 def home(request):
