@@ -1,9 +1,16 @@
 from datetime import datetime, timezone
+
+from languages.models import Language
 from .models import *
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
+
+def index(request):
+    languages = Language.objects.all()
+    context = {'languages': languages}
+    return render(request, 'home/index.html', context)
 
 @login_required(login_url='login')
 def home(request):

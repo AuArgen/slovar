@@ -3,7 +3,9 @@ from . import views
 
 urlpatterns = [
     # ... your existing URLs
-    path('', views.home, name='home'),
+    path('', views.index, name='index'),
+    path('lang/<int:id>/', views.index, name='index'),
+    path('home/', views.home, name='home'),
     path('add-word/', views.add_word, name='add-word'),
     path('add-text/', views.add_text, name='add-text'),
     path('text/', views.text, name='text'),

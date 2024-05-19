@@ -1,0 +1,28 @@
+{% load static %}
+<div class="dream-university">
+
+
+    <!--Begin feature-->
+    <div class="du-feature">
+        <div class="container">
+            <h2 class="center pb-50">Языки</h2>
+            <div class="row pt-50 mt-5">
+                {% for language in languages %}
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="du-feature-box maxheight wow fadeIn">
+                            <div class="badge overflow-hidden" style="overflow: hidden"><img class="w-100" style="width: 100%; height: 100%;" src="{{ language.image.url }}"  alt=""></div>
+                            <div class="du-caption-box">
+                                <div class="du-caption">
+                                    <p class="title">{{ language.title }}</p>
+                                    <p style="max-height: 100px; min-height: 100px; overflow-y: auto">{{ language.description }}</p>
+                                    <a href="/lang/{{ language.id }}/" class="btn-default du-common-property">Далее</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- End feature -->
+

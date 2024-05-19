@@ -6,6 +6,7 @@ class Language(models.Model):
     title = models.CharField(max_length=100, unique=True, verbose_name='Title language')
     key = models.CharField(max_length=100, unique=True, verbose_name='Key language (ru, kg, en...)')
     image = models.ImageField(upload_to='images/', verbose_name="Image")
+    description = models.TextField(verbose_name="Description", default='...')
     information = RichTextField(verbose_name='Information')
 
     class Meta:
