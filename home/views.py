@@ -40,6 +40,16 @@ def lesson(request, id):
     return redirect('index')
 
 
+def lesson_in(request, id2):
+    lesson = Lesson.objects.filter(id=id2)
+    if lesson.exists():
+        language = lesson[0].language
+        lesson = lesson[0]
+        context = {'lesson': lesson, 'language': language}
+        return render(request, 'home/lesson_in.html', context)
+    return redirect('index')
+
+
 @login_required(login_url='login')
 def home(request):
     words = Word.objects.filter(user_id=request.user).order_by('-id')
@@ -183,7 +193,6 @@ def learned_word(request, pk):
         return JsonResponse({'message': 'Ok'})
 
     return JsonResponse({'message': 'No'})
-
 
 
 @login_required(login_url='login')
